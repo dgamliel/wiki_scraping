@@ -6,7 +6,7 @@ import requests
 def get_request():
     get = requests.get('https://wikipedia.org/wiki/H')
 
-    return get.text
+    return get.content
 
 def main():
 
@@ -14,11 +14,12 @@ def main():
 
     html_soup = BeautifulSoup(html, "lxml")
     html_soup.prettify()
+    
+    refrences_OL = html_soup.find_all('ol', {'class':'references'})
 
-
-    for header in html_soup.find_all('h2'):
-        print(header)
-
-#    print (html)
+    for list_item in refrences_OL:
+        for li in list_item.find_all('li'):
+            for ref-text in li.find_all('span', {'class','reference-text'}):
+                print(ref-text)
 
 if __name__ == '__main__': main()
