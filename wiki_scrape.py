@@ -3,8 +3,24 @@ import time
 from bs4 import BeautifulSoup
 import requests
 
+def link_searcher():
+    in_string = input('What would you like to """cite"""?')
+    in_string_list = in_string.split()
+    for word in in_string_list:
+        if len(word) > 1:
+            word[0].capitalize()
+            word[1:].lower()
+        else:
+            word.capitalize()
+
+    return_string = '/'.join(in_string_list)
+
+    return return_string
+
+search_link = link_searcher()
+
 def get_request():
-    get = requests.get('https://wikipedia.org/wiki/Poison_Dart_Frogs')
+    get = requests.get('https://wikipedia.org/wiki/Gay')
 
     return get.content
 
