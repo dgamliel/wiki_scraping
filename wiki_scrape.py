@@ -28,6 +28,13 @@ def get_request(in_str):
 
     return get.content
 
+def OL_string_parser(OL):
+    for li in OL:
+        for string in li.strings:
+            if len(string) == 1:
+                pass
+            print (string)
+
 def main():
     in_string = input('What would you like to """cite"""? ')
     search_link = link_searcher(in_string)
@@ -38,6 +45,9 @@ def main():
     
     refrences_OL = html_soup.find_all('ol', {'class':'references'})
 
+    OL_string_parser(refrences_OL)
+
+    '''
     if len(refrences_OL) == 0:
         print("No references found")
         return
@@ -47,5 +57,6 @@ def main():
             ref_text = li.find('span', {'class','reference-text'})
             print(ref_text)
             print('\n')
+    '''
 
 if __name__ == '__main__': main()
