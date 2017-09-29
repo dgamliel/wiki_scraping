@@ -5,34 +5,52 @@ import time
 from bs4 import BeautifulSoup
 import requests
 
+'''
+This prompts the user to input what they want to search
+and creates the search link (not case sensitive) to pass to the python requests 
+function
+
+Ex: in: Poison dart frogs --> Poison_Dart_Frogs
+'''
+
 def link_searcher(in_string):
     # in_string = input('What would you like to """cite"""?')
+    
     in_string_list = in_string.split()
     ret_list = []
+    
     for word in in_string_list:
         if len(word) > 1:
             word = word[0].capitalize() + word[1:].lower()
         else:
             word = word.capitalize()
+
         ret_list.append(word)
 
     return_string = '_'.join(ret_list)
 
     return return_string
 
-# search_link = link_searcher()
+
+'''
+Takes in the wiki string and
+sends a get request to the wiki server with the specific link
+
+Ex: Get --> https://wikipedia.org/wiki/Poison_Dart_Frogs
+
+This returns the HTML content of the wiki page
+'''
 
 def get_request(in_str):
     link_addr = "https://wikipedia.org/wiki/" + in_str
     get = requests.get(link_addr)
-
+    
     return get.content
 
 def OL_string_parser(OL):
     for li in OL:
         for string in li.strings:
-            if len(string) == 1:
-                pass
+            #if len(string) > 2 or string != '^' or string != '.':
             print (string)
 
 def main():
@@ -46,17 +64,5 @@ def main():
     refrences_OL = html_soup.find_all('ol', {'class':'references'})
 
     OL_string_parser(refrences_OL)
-
-    '''
-    if len(refrences_OL) == 0:
-        print("No references found")
-        return
-
-    for list_item in refrences_OL:
-        for li in list_item.find_all('li'):
-            ref_text = li.find('span', {'class','reference-text'})
-            print(ref_text)
-            print('\n')
-    '''
 
 if __name__ == '__main__': main()
