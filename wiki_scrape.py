@@ -47,6 +47,10 @@ def get_request(in_str):
     
     return get.content
 
+'''
+This pulls the resources from the HTML data
+Strings is the 
+'''
 def OL_string_parser(OL):
     for li in OL:
         for string in li.strings:
